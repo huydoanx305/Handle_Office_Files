@@ -103,7 +103,7 @@ public class DocumentServiceImpl implements DocumentService {
 
         Map<String, Object> map = new HashMap<>();
         map.put("filePath", document.get().getPath());
-        map.put("previewPath", CommonConstant.PREVIEW + FileUtil.setNamePreview(file.getName()));
+        map.put("previewPath", FileUtil.setNamePreview(file.getName()));
         map.put("page", nowPage);
         return map;
     }
