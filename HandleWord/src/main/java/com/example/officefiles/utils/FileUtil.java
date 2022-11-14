@@ -22,6 +22,8 @@ public class FileUtil {
 
     public static final Path UPLOAD_PATH = RESOURCES_PATH.resolve(CommonConstant.UPLOAD);
 
+    public static final Path PREVIEW_PATH = RESOURCES_PATH.resolve(CommonConstant.PREVIEW);
+
     //save file
     public static File convertMultipartToFile(MultipartFile file) throws IOException {
         Path path = UPLOAD_PATH.resolve(Objects.requireNonNull(file.getOriginalFilename()));
@@ -35,6 +37,12 @@ public class FileUtil {
         return convertFile;
     }
 
+    //save file to preview
+    public static File saveFileToPreview(String fileName) {
+        Path path = PREVIEW_PATH.resolve(fileName);
+        return new File(String.valueOf(path));
+    }
+
     // Lấy ra file ở trong thư mục resources theo đường dẫn
     public static File getFileByPath(String pathFile) {
         Path path = RESOURCES_PATH.resolve(Paths.get(pathFile));
@@ -44,6 +52,11 @@ public class FileUtil {
     // Get type từ file name
     public static String getTypeFile(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
+    }
+
+    // Set name preview
+    public static String setNamePreview(String fileName) {
+        return "/preview-" + fileName;
     }
 
 // Zip file and convert XML to Json (Cách 1 -> bỏ)
