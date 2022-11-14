@@ -1,6 +1,5 @@
 package com.example.officefiles.service.impl;
 
-import com.example.officefiles.common.CommonConstant;
 import com.example.officefiles.entity.Document;
 import com.example.officefiles.entity.Segment;
 import com.example.officefiles.repository.DocumentRepository;
@@ -39,44 +38,44 @@ public class SegmentServiceImpl implements SegmentService {
     @Override
     @Transactional
     public void writeDocx(Long documentId) throws Exception {
-        WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
-        MainDocumentPart mainDocumentPart = wordPackage.getMainDocumentPart();
-        ObjectFactory factory = Context.getWmlObjectFactory();
-        for(Segment paragraph : segmentRepository.findByDocument_IdAnAndPaAndParagraphNull(documentId)) {
-            P p = factory.createP();
-            for(Segment run : paragraph.getRuns()) {
-                R r = factory.createR();
-                Text t = factory.createText();
-                t.setValue(run.getText());
-                if (run.getText().startsWith(" ") || run.getText().endsWith(" ") ) {
-                    t.setSpace("preserve");
-                }
-                RPr rpr = factory.createRPr();
-                BooleanDefaultTrue style = new BooleanDefaultTrue();
-                if(run.getBold())
-                    rpr.setB(style);
-                if(run.getStrike())
-                    rpr.setStrike(style);
-                if(run.getItalic())
-                    rpr.setI(style);
-                if(run.getUnderlineEnumeration() != null) {
-                    U u = factory.createU();
-                    u.setVal(run.getUnderlineEnumeration());
-                    rpr.setU(u);
-                }
-                r.setRPr(rpr);
-                r.getContent().add(t);
-                p.getContent().add(r);
-            }
-            mainDocumentPart.getContent().add(p);
-        }
-        Optional<Document> document = documentRepository.findById(documentId);
-        Path path = CURRENT_FOLDER.resolve(CommonConstant.staticPath)
-                .resolve(CommonConstant.responsePath).resolve(document.get().getFileName());
-        if (!Files.exists(CURRENT_FOLDER.resolve(CommonConstant.staticPath).resolve(CommonConstant.responsePath))) {
-            Files.createDirectories(CURRENT_FOLDER.resolve(CommonConstant.staticPath).resolve(CommonConstant.responsePath));
-        }
-        wordPackage.save(new File(String.valueOf(path)));
+//        WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
+//        MainDocumentPart mainDocumentPart = wordPackage.getMainDocumentPart();
+//        ObjectFactory factory = Context.getWmlObjectFactory();
+//        for(Segment paragraph : segmentRepository.findByDocument_IdAnAndPaAndParagraphNull(documentId)) {
+//            P p = factory.createP();
+//            for(Segment run : paragraph.getRuns()) {
+//                R r = factory.createR();
+//                Text t = factory.createText();
+//                t.setValue(run.getText());
+//                if (run.getText().startsWith(" ") || run.getText().endsWith(" ") ) {
+//                    t.setSpace("preserve");
+//                }
+//                RPr rpr = factory.createRPr();
+//                BooleanDefaultTrue style = new BooleanDefaultTrue();
+//                if(run.getBold())
+//                    rpr.setB(style);
+//                if(run.getStrike())
+//                    rpr.setStrike(style);
+//                if(run.getItalic())
+//                    rpr.setI(style);
+//                if(run.getUnderlineEnumeration() != null) {
+//                    U u = factory.createU();
+//                    u.setVal(run.getUnderlineEnumeration());
+//                    rpr.setU(u);
+//                }
+//                r.setRPr(rpr);
+//                r.getContent().add(t);
+//                p.getContent().add(r);
+//            }
+//            mainDocumentPart.getContent().add(p);
+//        }
+//        Optional<Document> document = documentRepository.findById(documentId);
+//        Path path = CURRENT_FOLDER.resolve(CommonConstant.staticPath)
+//                .resolve(CommonConstant.responsePath).resolve(document.get().getFileName());
+//        if (!Files.exists(CURRENT_FOLDER.resolve(CommonConstant.staticPath).resolve(CommonConstant.responsePath))) {
+//            Files.createDirectories(CURRENT_FOLDER.resolve(CommonConstant.staticPath).resolve(CommonConstant.responsePath));
+//        }
+//        wordPackage.save(new File(String.valueOf(path)));
     }
 
     @Override
